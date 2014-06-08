@@ -76,21 +76,21 @@ The architecture in particular looks like this:
 Presentation Application Support Status
 ---------------------------------------
 
-- _SUPPORTED_: Microsoft PowerPoint 2010 under Windows:<br/>
+- **SUPPORTED**: Microsoft PowerPoint 2010 under Windows:<br/>
   Fully supported through `connector-win-ppt`, which uses
   Windows Scripting Host (WST)'s JScript engine and the
   Component Object Model (COM) of PowerPoint.
 
-- _SUPPORTED_: Microsoft PowerPoint 2013 under Windows:<br/>
+- **SUPPORTED**: Microsoft PowerPoint 2013 under Windows:<br/>
   Expected to be supported (but not tested by the author) through
   `connector-win-ppt`, which uses Windows Scripting Host (WST)'s JScript
   engine and the Component Object Model (COM) of PowerPoint.
 
-- _SUPPORTED_: Microsoft PowerPoint 2011 under Mac OS X:<br/>
+- **SUPPORTED**: Microsoft PowerPoint 2011 under Mac OS X:<br/>
   Fully supported through `connector-osx-ppt`, which uses AppleScript
   engine and the application Dictionary of the PowerPoint:mac variant.
 
-- _SUPPORTED_: Apple Keynote 5 under Mac OS X:<br/>
+- **SUPPORTED**: Apple Keynote 5 under Mac OS X:<br/>
   Fully supported through `connector-osx-kn`, which uses AppleScript
   engine and the application Dictionary of Keynote.
 
