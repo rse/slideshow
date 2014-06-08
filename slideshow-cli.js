@@ -19,6 +19,7 @@ var apps = {
 };
 
 var commands = {
+    "help":   [],
     "use":    [ "application-type" ],
     "stat":   [],
     "info":   [],
@@ -50,30 +51,50 @@ rl.prompt();
 rl.on("line", function (line) {
     var argv = line.trim().split(/\s+/);
     var info = commands[argv[0]];
-    if (typeof info === "undefined")
-        console.log("slideshow: ERROR: invalid command");
-    else if (info.length !== (argv.length - 1))
+    if (typeof info === "undefined") {
+        console.log("slideshow: ERROR: invalid command (use \"help\" for usage)");
+        rl.prompt();
+    }
+    else if (info.length !== (argv.length - 1)) {
         console.log("slideshow: ERROR: invalid number of arguments (expected: " + info.join(" ") + ")");
+        rl.prompt();
+    }
     else {
-        if (argv[0] === "use") {
-            if (typeof apps[argv[1]] === "undefined")
+        if (argv[0] === "help") {
+            Object.keys(commands).forEach(function (cmd) {
+                console.log("    " + cmd + " " + (commands[cmd].map(function (arg) { return "<" + arg + ">" }).join(" ")));
+            });
+            rl.prompt();
+        }
+        else if (argv[0] === "use") {
+            if (typeof apps[argv[1]] === "undefined") {
                 console.log("slideshow: ERROR: invalid argument (expected: " + Object.keys(apps).join(", ") + ")");
+                rl.prompt();
+            }
             else {
                 if (ss !== null)
                     ss.end();
                 ss = new slideshow(argv[1]);
                 rl.setPrompt("slideshow(" + argv[1] + ")> ");
+                rl.prompt();
             }
         }
         else {
-            slideshow[argv[0]](argv[1]).then(function (response) {
-                console.log("slideshow: " + JSON.stringify(response));
-            }, function (error) {
-                console.log("slideshow: ERROR: " + error);
-            })
+            if (ss === null) {
+                console.log("slideshow: ERROR: you have to choose with \"use\" an application first");
+                rl.prompt();
+            }
+            else {
+                ss[argv[0]](argv[1]).then(function (response) {
+                    console.log(JSON.stringify(response, null, "    "));
+                    rl.prompt();
+                }, function (error) {
+                    console.log("slideshow: ERROR: " + error);
+                    rl.prompt();
+                })
+            }
         }
     }
-    rl.prompt();
 }).on("close", function() {
     console.log("");
     process.exit(0);
