@@ -46,69 +46,117 @@ var commands = {
     "next":   []
 };
 
-/*  start with a non-existing slideshow  */
-var ss = null;
+/*  the interactive CLI variant  */
+var cliInteractive = function () {
+    /*  start with a non-existing slideshow  */
+    var ss = null;
 
-/*  create the stdin/stdout based readline interface  */
-var rl = readline.createInterface({
-    input:  process.stdin,
-    output: process.stdout
-});
+    /*  create the stdin/stdout based readline interface  */
+    var rl = readline.createInterface({
+        input:  process.stdin,
+        output: process.stdout
+    });
 
-/*  provide CLI  */
-rl.setPrompt("slideshow> ");
-rl.prompt();
-rl.on("line", function (line) {
-    /*  determine command  */
-    var argv = line.trim().split(/\s+/);
-    var info = commands[argv[0]];
-    var prompt = true;
-    if (typeof info === "undefined")
-        console.log(chalk.red("ERROR: invalid command (use \"help\" for usage)"));
-    else if (info.length !== (argv.length - 1))
-        console.log(chalk.red("ERROR: invalid number of arguments (expected: " + info.join(" ") + ")"));
-    else {
-        /*  process CLI-specific commands  */
-        if (argv[0] === "help")
-            Object.keys(commands).forEach(function (cmd) {
-                console.log(chalk.green("    " + cmd + " " + (commands[cmd].map(function (arg) { return "<" + arg + ">" }).join(" "))));
-            });
-        else if (argv[0] === "use") {
-            if (typeof apps[argv[1]] === "undefined")
-                console.log(chalk.red("ERROR: invalid argument (expected: " + Object.keys(apps).join(", ") + ")"));
-            else {
-                if (ss !== null)
-                    ss.end();
-                ss = new slideshow(argv[1]);
-                rl.setPrompt("slideshow(" + argv[1] + ")> ");
-            }
-        }
-
-        /*  process API-derived commands  */
+    /*  provide CLI  */
+    rl.setPrompt("slideshow> ");
+    rl.prompt();
+    rl.on("line", function (line) {
+        /*  determine command  */
+        var argv = line.trim().split(/\s+/);
+        var info = commands[argv[0]];
+        var prompt = true;
+        if (typeof info === "undefined")
+            console.log(chalk.red("ERROR: invalid command (use \"help\" for usage)"));
+        else if (info.length !== (argv.length - 1))
+            console.log(chalk.red("ERROR: invalid number of arguments (expected: " + info.join(" ") + ")"));
         else {
-            if (ss === null)
-                console.log(chalk.red("ERROR: you have to choose with \"use\" an application first"));
+            /*  process CLI-specific commands  */
+            if (argv[0] === "help")
+                Object.keys(commands).forEach(function (cmd) {
+                    console.log(chalk.green("    " + cmd + " " + (commands[cmd].map(function (arg) { return "<" + arg + ">" }).join(" "))));
+                });
+            else if (argv[0] === "use") {
+                if (typeof apps[argv[1]] === "undefined")
+                    console.log(chalk.red("ERROR: invalid argument (expected: " + Object.keys(apps).join(", ") + ")"));
+                else {
+                    if (ss !== null)
+                        ss.end();
+                    ss = new slideshow(argv[1]);
+                    rl.setPrompt("slideshow(" + argv[1] + ")> ");
+                }
+            }
+
+            /*  process API-derived commands  */
             else {
-                ss[argv[0]](argv[1]).then(function (response) {
-                    console.log(chalk.green(JSON.stringify(response, null, "    ")));
-                    rl.prompt();
-                }, function (error) {
-                    console.log(chalk.red("ERROR: " + error));
-                    rl.prompt();
-                })
-                prompt = false;
+                if (ss === null)
+                    console.log(chalk.red("ERROR: you have to choose with \"use\" an application first"));
+                else {
+                    ss[argv[0]](argv[1]).then(function (response) {
+                        console.log(chalk.green(JSON.stringify(response, null, "    ")));
+                        rl.prompt();
+                    }, function (error) {
+                        console.log(chalk.red("ERROR: " + error));
+                        rl.prompt();
+                    })
+                    prompt = false;
+                }
             }
         }
+
+        /*  provide prompt for next iteration  */
+        if (prompt)
+            rl.prompt();
+    });
+
+    /*  gracefully stop CLI  */
+    rl.on("close", function() {
+        console.log("");
+        process.exit(0);
+    });
+};
+
+/*  the batch CLI variant  */
+var cliBatch = function (argv) {
+    if (argv.length === 1 && argv[0] === "help") {
+        Object.keys(commands).forEach(function (cmd) {
+            if (cmd !== "use" && cmd !== "help") {
+                console.log(chalk.green("slideshow <application> " + cmd + " " + (
+                    commands[cmd].map(function (arg) { return "<" + arg + ">" }).join(" ")
+                )));
+            }
+        });
+        process.exit(0);
     }
+    if (argv.length < 2) {
+        console.log(chalk.red("ERROR: invalid number of arguments (use \"help\" for usage)"));
+        process.exit(1);
+    }
+    if (typeof apps[argv[0]] === "undefined") {
+        console.log(chalk.red("ERROR: invalid application (expected: " + Object.keys(apps).join(", ") + ")"));
+        process.exit(1);
+    }
+    var ss = new slideshow(argv[0]);
+    var info = commands[argv[1]];
+    if (typeof info === "undefined") {
+        console.log(chalk.red("ERROR: invalid connector command (use \"help\" for usage)"));
+        process.exit(1);
+    }
+    else if (info.length !== (argv.length - 2)) {
+        console.log(chalk.red("ERROR: invalid number of connector arguments (expected: " + info.join(" ") + ")"));
+        process.exit(1);
+    }
+    ss[argv[1]](argv[2]).then(function (response) {
+        console.log(chalk.green(JSON.stringify(response, null, "    ")));
+        process.exit(0);
+    }, function (error) {
+        console.log(chalk.red("ERROR: " + error));
+        process.exit(1);
+    })
+};
 
-    /*  provide prompt for next iteration  */
-    if (prompt)
-        rl.prompt();
-});
-
-/*  gracefully stop CLI  */
-rl.on("close", function() {
-    console.log("");
-    process.exit(0);
-});
+/*  dispatch according to type of operation  */
+if (process.argv.length === 2)
+    cliInteractive();
+else
+    cliBatch(process.argv.splice(2));
 
