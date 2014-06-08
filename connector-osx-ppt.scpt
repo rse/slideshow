@@ -43,12 +43,12 @@ on asciiCharset()
 end asciiCharset
 
 --  get application state
-on is_running(appName)
-    tell application "System Events" to (name of processes) contains appName
-end is_running
 on pptGetState()
     set state to "closed"
-    if is_running("Microsoft PowerPoint") then
+    tell application "System Events"
+        set is_running to (exists (some process whose name is "Microsoft PowerPoint"))
+    end tell
+    if is_running then
        try
             set state to "running"
             tell application "Microsoft PowerPoint"
