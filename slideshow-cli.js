@@ -11,16 +11,23 @@
 **  Language: Node/JavaScript
 */
 
+/*  external requirements  */
+var readline  = require("readline");
 var slideshow = require("./slideshow-api");
 
+/*  define the known applications  */
 var apps = {
     "powerpoint": true,
     "keynote":    true
 };
 
+/*  define the known commands (and their argument)  */
 var commands = {
+    /*  CLI-specific  */
     "help":   [],
     "use":    [ "application-type" ],
+
+    /*  API-derived  */
     "stat":   [],
     "info":   [],
     "boot":   [],
@@ -38,52 +45,48 @@ var commands = {
     "next":   []
 };
 
-var readline = require("readline");
-
+/*  start with a non-existing slideshow  */
 var ss = null;
 
+/*  create the stdin/stdout based readline interface  */
 var rl = readline.createInterface({
     input:  process.stdin,
     output: process.stdout
 });
+
+/*  provide CLI  */
 rl.setPrompt("slideshow> ");
 rl.prompt();
 rl.on("line", function (line) {
+    /*  determine command  */
     var argv = line.trim().split(/\s+/);
     var info = commands[argv[0]];
-    if (typeof info === "undefined") {
+    var prompt = true;
+    if (typeof info === "undefined")
         console.log("slideshow: ERROR: invalid command (use \"help\" for usage)");
-        rl.prompt();
-    }
-    else if (info.length !== (argv.length - 1)) {
+    else if (info.length !== (argv.length - 1))
         console.log("slideshow: ERROR: invalid number of arguments (expected: " + info.join(" ") + ")");
-        rl.prompt();
-    }
     else {
-        if (argv[0] === "help") {
+        /*  process CLI-specific commands  */
+        if (argv[0] === "help")
             Object.keys(commands).forEach(function (cmd) {
                 console.log("    " + cmd + " " + (commands[cmd].map(function (arg) { return "<" + arg + ">" }).join(" ")));
             });
-            rl.prompt();
-        }
         else if (argv[0] === "use") {
-            if (typeof apps[argv[1]] === "undefined") {
+            if (typeof apps[argv[1]] === "undefined")
                 console.log("slideshow: ERROR: invalid argument (expected: " + Object.keys(apps).join(", ") + ")");
-                rl.prompt();
-            }
             else {
                 if (ss !== null)
                     ss.end();
                 ss = new slideshow(argv[1]);
                 rl.setPrompt("slideshow(" + argv[1] + ")> ");
-                rl.prompt();
             }
         }
+
+        /*  process API-derived commands  */
         else {
-            if (ss === null) {
+            if (ss === null)
                 console.log("slideshow: ERROR: you have to choose with \"use\" an application first");
-                rl.prompt();
-            }
             else {
                 ss[argv[0]](argv[1]).then(function (response) {
                     console.log(JSON.stringify(response, null, "    "));
@@ -92,10 +95,18 @@ rl.on("line", function (line) {
                     console.log("slideshow: ERROR: " + error);
                     rl.prompt();
                 })
+                prompt = false;
             }
         }
     }
-}).on("close", function() {
+
+    /*  provide prompt for next iteration  */
+    if (prompt)
+        rl.prompt();
+});
+
+/*  gracefully stop CLI  */
+rl.on("close", function() {
     console.log("");
     process.exit(0);
 });
