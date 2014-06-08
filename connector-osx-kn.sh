@@ -44,6 +44,6 @@ while true; do
     command=`echo "$request" | sed -e 's;^.*command": *"\([^"]*\)".*$;\1;'`
 
     #   let AppleScript produce the response
-    osascript "$basedir/connector-osx-keynote.scpt" $command
+    osascript "$basedir/connector-osx-kn" $command
 done
 
