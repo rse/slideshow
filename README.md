@@ -81,20 +81,6 @@ locally (default) or globally (with option `-g`):
 
     $ npm install [-g] slideshow
 
-Usage
------
-
-```js
-var slideshow = require("slideshow");
-
-FIXME
-```
-
-API
----
-
-- `FIXME([options]): FIXME`: constructor for the API.
-
 License
 -------
 
