@@ -27,19 +27,19 @@ No native code is required.
 Architecture
 ------------
 
-The architure of Slideshow fulfills the following constraints:
+The architecture of Slideshow fulfills the following constraints:
 
-1. There should be no native code required because
+1. *No Native Code*: There should be no native code required because
    this is nasty (especially under Windows) during module installation
    time (because a compiler is required). The solution is to leverage
    the scripting environment of the particular platform (Windows
    Scripting Host and AppleScript).
 
-2. The platform specific code should be kept separate
+2. *Separate Platform Specifics*: The platform specific code should be kept separate
    (because else the infrastructure code would have to be duplicated).
    The solution is the splitting as seen below.
 
-3. The communication between the Node process and the
+3. *Universal Platform Interface*: The communication between the Node process and the
    platform specific process should be universal
    (because else we need multiple communication variants).
    The solution is to use simple `stdio` based communication.
