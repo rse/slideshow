@@ -13,6 +13,7 @@
 
 /*  external requirements  */
 var readline  = require("readline");
+var chalk     = require("chalk");
 var slideshow = require("./slideshow-api");
 
 /*  define the known applications  */
@@ -63,18 +64,18 @@ rl.on("line", function (line) {
     var info = commands[argv[0]];
     var prompt = true;
     if (typeof info === "undefined")
-        console.log("slideshow: ERROR: invalid command (use \"help\" for usage)");
+        console.log(chalk.red("ERROR: invalid command (use \"help\" for usage)"));
     else if (info.length !== (argv.length - 1))
-        console.log("slideshow: ERROR: invalid number of arguments (expected: " + info.join(" ") + ")");
+        console.log(chalk.red("ERROR: invalid number of arguments (expected: " + info.join(" ") + ")"));
     else {
         /*  process CLI-specific commands  */
         if (argv[0] === "help")
             Object.keys(commands).forEach(function (cmd) {
-                console.log("    " + cmd + " " + (commands[cmd].map(function (arg) { return "<" + arg + ">" }).join(" ")));
+                console.log(chalk.green("    " + cmd + " " + (commands[cmd].map(function (arg) { return "<" + arg + ">" }).join(" "))));
             });
         else if (argv[0] === "use") {
             if (typeof apps[argv[1]] === "undefined")
-                console.log("slideshow: ERROR: invalid argument (expected: " + Object.keys(apps).join(", ") + ")");
+                console.log(chalk.red("ERROR: invalid argument (expected: " + Object.keys(apps).join(", ") + ")"));
             else {
                 if (ss !== null)
                     ss.end();
@@ -86,13 +87,13 @@ rl.on("line", function (line) {
         /*  process API-derived commands  */
         else {
             if (ss === null)
-                console.log("slideshow: ERROR: you have to choose with \"use\" an application first");
+                console.log(chalk.red("ERROR: you have to choose with \"use\" an application first"));
             else {
                 ss[argv[0]](argv[1]).then(function (response) {
-                    console.log(JSON.stringify(response, null, "    "));
+                    console.log(chalk.green(JSON.stringify(response, null, "    ")));
                     rl.prompt();
                 }, function (error) {
-                    console.log("slideshow: ERROR: " + error);
+                    console.log(chalk.red("ERROR: " + error));
                     rl.prompt();
                 })
                 prompt = false;
