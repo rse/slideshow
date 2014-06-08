@@ -1,0 +1,33 @@
+{
+    "name":        "slideshow",
+    "homepage":    "http://github.com/rse/slideshow",
+    "description": "Observe and Control Slideshow Applications",
+    "version":     "0.0.0",
+    "license":     "MPL",
+    "author": {
+        "name":    "Ralf S. Engelschall",
+        "email":   "rse@engelschall.com",
+        "url":     "http://engelschall.com"
+    },
+    "keywords": [
+        "slide", "slideshow", "presentation",
+        "powerpoint", "keynote", "applescript", "wsh", "jscript"
+    ],
+    "repository": {
+        "type": "git",
+        "url":  "git://github.com/rse/slideshow.git"
+    },
+    "bugs": {
+        "url":  "http://github.com/rse/slideshow"
+    },
+    "main": "./slideshow.js",
+    "devDependencies": {
+    },
+    "dependencies" : {
+        "event-stream":         "~3.1.5",
+        "bluebird":             "~2.0.6"
+    },
+    "engines": {
+        "node":                 ">=0.10.0"
+    }
+}
