@@ -50,10 +50,10 @@ The architecture in particular looks like this:
     |  node                                           |
     +-------------------------------------------------+
     +-------------------------------------------------+
-    |  Application                                    |
+    |  Slideshow CLI (slideshow-cli.js) or App        |
     +-------------------------------------------------+
     +-------------------------------------------------+
-    |  Slideshow API (slideshow.js)                   |
+    |  Slideshow API (slideshow-api.js)               |
     +-------------------------------------------------+
     +-------------------------------------------------+
     |  Connector API (connector.js)                   |
