@@ -20,7 +20,10 @@
     "bugs": {
         "url":  "http://github.com/rse/slideshow"
     },
-    "main": "./slideshow.js",
+    "main": "./slideshow-api.js",
+    "bin": {
+        "slideshow": "./slideshow-cli.js"
+    },
     "devDependencies": {
     },
     "dependencies" : {

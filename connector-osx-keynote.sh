@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 ##
 ##  slideshow -- Observe and Control Slideshow Applications
 ##  Copyright (c) 2014 Ralf S. Engelschall <http://engelschall.com>

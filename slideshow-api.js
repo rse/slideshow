@@ -7,7 +7,7 @@
 **  with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 **
 **  File:     slideshow.js
-**  Purpose:  high-level API
+**  Purpose:  Application Programming Interface (API)
 **  Language: Node/JavaScript
 */
 
@@ -20,6 +20,12 @@ var slideshow = function (application) {
 
 /*  the slideshow API methods  */
 slideshow.prototype = {
+    request: function (request) {
+        return this.connector.request(request);
+    },
+    end: function () {
+        this.connector.end();
+    },
     "stat":   function ()   { return this.connector.request({ command: "STAT"       }); },
     "info":   function ()   { return this.connector.request({ command: "INFO"       }); },
     "boot":   function ()   { return this.connector.request({ command: "BOOT"       }); },
