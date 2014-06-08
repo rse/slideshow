@@ -73,7 +73,9 @@ var cliInteractive = function () {
             /*  process CLI-specific commands  */
             if (argv[0] === "help")
                 Object.keys(commands).forEach(function (cmd) {
-                    console.log(chalk.green("    " + cmd + " " + (commands[cmd].map(function (arg) { return "<" + arg + ">" }).join(" "))));
+                    console.log(chalk.green("    " + cmd + " " + (
+                        commands[cmd].map(function (arg) { return "<" + arg + ">"; }).join(" ")
+                    )));
                 });
             else if (argv[0] === "use") {
                 if (typeof apps[argv[1]] === "undefined")
@@ -97,7 +99,7 @@ var cliInteractive = function () {
                     }, function (error) {
                         console.log(chalk.red("ERROR: " + error));
                         rl.prompt();
-                    })
+                    });
                     prompt = false;
                 }
             }
@@ -121,7 +123,7 @@ var cliBatch = function (argv) {
         Object.keys(commands).forEach(function (cmd) {
             if (cmd !== "use" && cmd !== "help") {
                 console.log(chalk.green("slideshow <application> " + cmd + " " + (
-                    commands[cmd].map(function (arg) { return "<" + arg + ">" }).join(" ")
+                    commands[cmd].map(function (arg) { return "<" + arg + ">"; }).join(" ")
                 )));
             }
         });
@@ -151,7 +153,7 @@ var cliBatch = function (argv) {
     }, function (error) {
         console.log(chalk.red("ERROR: " + error));
         process.exit(1);
-    })
+    });
 };
 
 /*  dispatch according to type of operation  */
