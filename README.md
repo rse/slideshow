@@ -73,6 +73,40 @@ The architecture in particular looks like this:
     |win-ppt.js  | |osx-ppt.scpt| |osx-kn.scpt | |
     +------------+ +------------+ +------------+ +-- -
 
+Presentation Application Support Status
+---------------------------------------
+
+- SUPPORTED: Microsoft PowerPoint 2010 under Windows:<br/>
+  Fully supported through `connector-win-ppt`, which uses
+  Windows Scripting Host (WST)'s JScript engine and the
+  Component Object Model (COM) of PowerPoint.
+
+- SUPPORTED: Microsoft PowerPoint 2013 under Windows:<br/>
+  Expected to be supported (but not tested by the author) through
+  `connector-win-ppt`, which uses Windows Scripting Host (WST)'s JScript
+  engine and the Component Object Model (COM) of PowerPoint.
+
+- SUPPORTED: Microsoft PowerPoint 2011 under Mac OS X:<br/>
+  Fully supported through `connector-osx-ppt`, which uses AppleScript
+  engine and the application Dictionary of the PowerPoint:mac variant.
+
+- SUPPORTED: Apple Keynote 5 under Mac OS X:<br/>
+  Fully supported through `connector-osx-kn`, which uses AppleScript
+  engine and the application Dictionary of Keynote.
+
+- STILL UNSUPPORTED: Apple Keynote 6 under Mac OS X:<br/>
+  Currently not supported, because the AppleScript support in
+  Keynote 6 is still behind what Keynote 5 already supported.
+
+- STILL UNSUPPORTED: LibreOffice 4 Impress under Windows/Mac OS X/Linux:<br/>
+  Currently not supported, but there are two possible
+  approaches for the future: the newer [LibreOffice Impress Remote Protocol](http://cgit.freedesktop.org/libreoffice/core/tree/sd/README_REMOTE)
+  or the older [Universal Network Objects (UNO)](https://wiki.openoffice.org/wiki/Uno) Java interface.
+
+- STILL UNSUPPORTED: OpenOffice 4 Impress under Windows/Mac OS X/Linux:<br/>
+  Currently not supported, but there is one possible
+  approache for the future: the [Universal Network Objects (UNO)](https://wiki.openoffice.org/wiki/Uno) Java interface.
+
 Installation
 ------------
 
