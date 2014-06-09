@@ -7,10 +7,10 @@ rem ##  This Source Code Form is subject to the terms of the Mozilla Public
 rem ##  License (MPL), version 2.0. If a copy of the MPL was not distributed
 rem ##  with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 rem ##
-rem ##  File:     connector-win-ppt.bat
-rem ##  Purpose:  connector wrapper for Microsoft PowerPoint under Windows
+rem ##  File:     connector-win-ppt2010.bat
+rem ##  Purpose:  connector wrapper for Microsoft PowerPoint 2010 under Windows
 rem ##  Language: COMMAND.COM
 rem ##
 
-cscript /E:JScript /NoLogo "%~dp0\connector-win-ppt.js" %*
+cscript /E:JScript /NoLogo "%~dp0\connector-win-ppt2010.js" %*
 

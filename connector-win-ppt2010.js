@@ -6,8 +6,8 @@
 **  License (MPL), version 2.0. If a copy of the MPL was not distributed
 **  with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 **
-**  File:     connector-win-ppt.js
-**  Purpose:  connector engine for Microsoft PowerPoint under Windows
+**  File:     connector-win-ppt2010.js
+**  Purpose:  connector engine for Microsoft PowerPoint 2010 under Windows
 **  Language: WSH/JScript
 */
 

@@ -7,8 +7,8 @@
 ##  License (MPL), version 2.0. If a copy of the MPL was not distributed
 ##  with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
-##  File:     connector-osx-keynote.sh
-##  Purpose:  connector wrapper for Apple Keynote under Mac OS X
+##  File:     connector-osx-ppt2011.sh
+##  Purpose:  connector wrapper for Microsoft PowerPoint 2011 under Mac OS X
 ##  Language: Bourne-Shell
 ##
 
@@ -44,6 +44,6 @@ while true; do
     command=`echo "$request" | sed -e 's;^.*command": *"\([^"]*\)".*$;\1;'`
 
     #   let AppleScript produce the response
-    osascript "$basedir/connector-osx-kn.scpt" $command
+    osascript "$basedir/connector-osx-ppt2011.scpt" $command
 done
 

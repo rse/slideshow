@@ -20,9 +20,13 @@ var Promise  = require("bluebird");
 
 /*  the supported connectors  */
 var connectors = {
-    "darwin-keynote":    "connector-osx-kn.sh",
-    "darwin-powerpoint": "connector-osx-ppt.sh",
-    "win32-powerpoint":  "connector-win-ppt.bat"
+    "darwin-keynote":        "connector-osx-kn5.sh",
+    "darwin-keynote5":       "connector-osx-kn5.sh",
+    "darwin-keynote6":       "connector-osx-kn6.sh",
+    "darwin-powerpoint":     "connector-osx-ppt2011.sh",
+    "darwin-powerpoint2011": "connector-osx-ppt2011.sh",
+    "win32-powerpoint":      "connector-win-ppt2010.bat",
+    "win32-powerpoint2010":  "connector-win-ppt2010.bat"
 };
 
 /*  the connector API constructor  */
