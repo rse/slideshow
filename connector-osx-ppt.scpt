@@ -228,14 +228,14 @@ on cmdCTRL(command, arg)
         tell application "Microsoft PowerPoint"
             exit slide show (slideshow view of slide show window 1)
         end tell
-    else if command is "BLACK" then
+    else if command is "PAUSE" then
         if state is not "viewing" then
             error "no active slideshow"
         end if
         tell application "Microsoft PowerPoint"
             set slide state of (slideshow view of slide show window 1) to (slide show state black screen)
         end tell
-    else if command is "NORMAL" then
+    else if command is "RESUME" then
         if state is not "viewing" then
             error "no active slideshow"
         end if
@@ -301,8 +301,8 @@ on run argv
             or cmd is "CLOSE" ¬
             or cmd is "START" ¬
             or cmd is "STOP" ¬
-            or cmd is "BLACK" ¬
-            or cmd is "NORMAL" ¬
+            or cmd is "PAUSE" ¬
+            or cmd is "RESUME" ¬
             or cmd is "FIRST" ¬
             or cmd is "LAST" ¬
             or cmd is "GOTO" ¬

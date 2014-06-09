@@ -156,7 +156,7 @@ var cmdCONTROL = function (cmd, arg) {
         if (pres === null)
             throw new Error("still no active presentation");
     }
-    if (cmd.match(/(STOP|BLACK|NORMAL|FIRST|LAST|GOTO|PREV|NEXT)$/)) {
+    if (cmd.match(/(STOP|PAUSE|RESUME|FIRST|LAST|GOTO|PREV|NEXT)$/)) {
         if (ss === null)
             throw new Error("still no running slideshow");
     }
@@ -182,9 +182,9 @@ var cmdCONTROL = function (cmd, arg) {
     else if (cmd === "STOP") {
         ss.Exit();
     }
-    else if (cmd === "BLACK")
+    else if (cmd === "PAUSE")
         ss.View.State = 3 /* ppSlideShowBlackScreen */;
-    else if (cmd === "NORMAL")
+    else if (cmd === "RESUME")
         ss.View.GotoSlide(ss.View.CurrentShowPosition);
     else if (cmd === "FIRST")
         ss.View.First();
@@ -218,7 +218,7 @@ while (!WScript.StdIn.AtEndOfStream) {
             out = cmdSTAT();
         else if (cmd === "INFO")
             out = cmdINFO();
-        else if (cmd.match(/^(BOOT|QUIT|OPEN|CLOSE|START|STOP|BLACK|NORMAL|FIRST|LAST|GOTO|PREV|NEXT)$/))
+        else if (cmd.match(/^(BOOT|QUIT|OPEN|CLOSE|START|STOP|PAUSE|RESUME|FIRST|LAST|GOTO|PREV|NEXT)$/))
             out = cmdCONTROL(cmd, arg);
         else
             throw new Error("invalid command: " + cmd);
