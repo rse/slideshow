@@ -49,7 +49,7 @@ slideshow powerpoint quit
 ```
 
 ```js
-#   API variant
+//  API variant
 var SlideShow = require("slideshow")
 var slideshow = new SlideShow("powerpoint")
 slideshow.boot()
