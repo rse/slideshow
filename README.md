@@ -145,7 +145,7 @@ Presentation Application Support Status
 
 - STILL UNSUPPORTED: OpenOffice 4 Impress under Windows/Mac OS X/Linux:<br/>
   Currently not supported, but there is one possible
-  approache for the future: the [Universal Network Objects (UNO)](https://wiki.openoffice.org/wiki/Uno) Java interface.
+  approach for the future: the [Universal Network Objects (UNO)](https://wiki.openoffice.org/wiki/Uno) Java interface.
 
 License
 -------
