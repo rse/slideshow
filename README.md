@@ -15,9 +15,9 @@ Abstract
 
 Slideshow is a [Node](http://nodejs.org/)/JavaScript API for observing and controlling
 the presentation applications
-[Microsoft PowerPoint 2010/2013 for Windows](http://office.microsoft.com/en-us/powerpoint/),
+[Microsoft PowerPoint 2010 for Windows](http://office.microsoft.com/en-us/powerpoint/),
 [Microsoft PowerPoint 2011 for Mac OS X](http://www.microsoft.com/mac/powerpoint) and
-[Apple KeyNote 5/6 for Mac OS X](http://www.apple.com/mac/keynote/).
+[Apple KeyNote 5 for Mac OS X](http://www.apple.com/mac/keynote/).
 It can determine the current state of the application, gather information
 about the slides and control the application's slideshow mode.
 It is implemented as a thin Node/JavaScript API layer on
