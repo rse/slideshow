@@ -135,7 +135,7 @@ Presentation Application Support Status
   engine and the application Dictionary of Keynote.
 
 - **PARTIALLY SUPPORTED**: Apple Keynote 6 under Mac OS X:<br/>
-  Fully supported through `connector-osx-kn6`, which uses AppleScript
+  Partially supported through `connector-osx-kn6`, which uses AppleScript
   engine and the application Dictionary of Keynote. Currently partially
   broken, because the AppleScript support in Keynote 6 still lacks many
   things Keynote 5 already supported. The main problem currently is that
