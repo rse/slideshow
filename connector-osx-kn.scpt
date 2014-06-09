@@ -6,34 +6,73 @@
 --  License (MPL), version 2.0. If a copy of the MPL was not distributed
 --  with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 --
---  File:     connector-osx-keynote.js
---  Purpose:  connector engine for Apple Keynote under Mac OS X
+--  File:     connector-osx-kn.js
+--  Purpose:  connector engine for Apple Keynote 5 under Mac OS X
 --  Language: AppleScript
 --
 
 --  utility function
-on offsetOf(theString, subString)
-    if theString does not contain subString then
-        return 0
+on filterText(this_text, allowed_chars)
+   set new_text to ""
+   repeat with this_char in this_text
+       set x to the offset of this_char in allowed_chars
+       if x is not 0 then
+           set new_text to (new_text & this_char) as string
+       end if
+   end repeat
+   return new_text
+end filterText
+
+--  utility function
+on replaceText(this_text, search_string, replacement_string)
+   set AppleScript's text item delimiters to the search_string
+   set the item_list to every text item of this_text
+   set AppleScript's text item delimiters to the replacement_string
+   set this_text to the item_list as string
+   set AppleScript's text item delimiters to ""
+   return this_text
+end replace_chars
+
+--  utility function
+on asciiCharset()
+    set charset to " \"'!#$%()*+,-./:;<=>?@[\\]^_{|}~"
+    set charset to (charset & "0123456789")
+    set charset to (charset & "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    set charset to (charset & "abcdefghijklmnopqrstuvwxyz")
+    return charset
+end asciiCharset
+
+--  get application state
+on knGetState()
+    set state to "closed"
+    tell application "System Events"
+        set is_running to (exists (some process whose name is "Keynote"))
+    end tell
+    if is_running then
+       try
+            set state to "running"
+            tell application "Keynote"
+                if playing then
+                    set state to "viewing"
+                else if (get count of slides of front document) > 0 then
+                    set state to "editing"
+                end if
+            end tell
+        on error errMsg
+        end try
     end if
-    set stringCharacterCount    to (get count of characters in theString)
-    set substringCharacterCount to (get count of characters in subString)
-    set lastCharacter to (stringCharacterCount - substringCharacterCount + 1)
-    repeat with n from 1 to lastCharacter
-        set m to (n + substringCharacterCount) - 1
-        set currentSubstring to (get characters n thru m of theString) as string
-        if currentSubstring is subString then
-            return n
-        end if
-    end repeat
-    return 0
-end offsetOf
+    return state
+end knGetState
 
 --  get Apple Keynote current slide
 on knGetCurSlide()
     try
         tell application "Keynote"
-            return (get slide number of current slide of front document)
+            if playing then
+                return (get slide number of current slide of front document)
+            else
+                return (get slide number of current slide of front document)
+            end if
         end tell
     on error errMsg
         return 0
@@ -51,83 +90,162 @@ on knGetMaxSlide()
     end try
 end knGetMaxSlide
 
---  get Apple Keynote current slide
-on knGetSlideInfo()
-    try
-        tell application "Keynote"
-            set thePresentation to front document
-            set slideCount to (get count of slides of thePresentation)
-            set slideInfo to "[ "
-            repeat with slideNum from 1 to slideCount
-                set theSlide to slide slideNum of thePresentation
-                set theNote to ""
-                repeat with theChars in (presenter notes of theSlide)
-                    set theText to ("" & (theChars as string) & "")
-                    set offStart to my offsetOf(theText, "TK<")
-                    if offStart is not 0 then
-                        set offStart to (offStart + 3)
-                        set tmp to (get characters offStart thru ((get count of characters in theText)) of theText) as string
-                        set offEnd to my offsetOf(tmp, ">")
-                        if offEnd is not 0 and offENd is not 1 then
-                            set theNote to (get characters offStart thru (offStart + (offEnd - 1) - 1) of theText) as string
-                            exit repeat
-                        end if
-                    end if
-                end repeat
-                if slideInfo is "[ " then
-                    set slideInfo to (slideInfo & "\"" & theNote & "\"")
-                else
-                    set slideInfo to (slideInfo & ", \"" & theNote & "\"")
-                end if
-            end repeat
-            set slideInfo to (slideInfo & " ]")
-            return slideInfo
-        end tell
-    on error errMsg
-        return "[]"
-    end try
-end knGetSlideInfo
+--  the STATE command
+on cmdSTATE()
+    set state to knGetState()
+    if state is "closed" then
+        set position to 0
+        set slides to 0
+    else
+        set position to knGetCurSlide()
+        set slides to knGetMaxSlide()
+    end if
+    return ("{ \"response\": { " & ¬
+        "\"state\": \"" & state & "\", " & ¬
+        "\"position\": " & position & ", " & ¬
+        "\"slides\": " & slides & " " & ¬
+    "} }")
+end cmdSTATE
 
---  get Apple Keynote slide titles
-on knGetSlideTitles()
-    -- try
-        tell application "Keynote"
-            set thePresentation to front document
-            set slideCount to (get count of slides of thePresentation)
-            set slideTitles to "[ "
-            repeat with slideNum from 1 to slideCount
-                set theSlide to slide slideNum of thePresentation
-                set theTitle to object text of default title item of theSlide
-                if slideTitles is "[ " then
-                    set slideTitles to (slideTitles & "\"" & theTitle & "\"")
-                else
-                    set slideTitles to (slideTitles & ", \"" & theTitle & "\"")
-                end if
-            end repeat
-            set slideTitles to (slideTitles & " ]")
-            return slideTitles
-        end tell
-    -- on error errMsg
-        return 0
-    -- end try
-end knGetCurSlide
-
---  control slide show
-on knSlideShowControl(command, arg)
+--  the INFO command
+on cmdINFO()
+    set output to ""
+    if knGetMaxSlide() is 0 then
+        error "still no active presentation"
+    end if
     tell application "Keynote"
-        if command is "START" then
-            start (front document) from (slide 1 of front document)
-        else if command is "NEXT" then
-            show next
-        else if command is "GOTO" then
-            show slide (arg as integer) of front document
-        else if command is "PREV" then
-            show previous
-        else if command is "STOP" then
-            stop front document
-        end if
+        set thePresentation to front document
+        set theTitles to ""
+        set theNotes to ""
+        set slideCount to (get count of slides of thePresentation)
+        repeat with slideNum from 1 to slideCount
+            set theSlide to slide slideNum of thePresentation
+
+            set theTitle to (title of theSlide) as string
+            if theTitles is not "" then
+                set theTitles to (theTitles & ", ")
+            end if
+            set theTitles to (theTitles & "\"" & (my replaceText(theTitle, "\"", "\\\"")) & "\"")
+
+            set theNote to (notes of theSlide) as string
+            set theNote to (my filterText(theNote, my asciiCharset()))
+            if theNotes is not "" then
+                set theNotes to (theNotes & ", ")
+            end if
+            set theNotes to (theNotes & "\"" & (my replaceText(theNote, "\"", "\\\"")) & "\"")
+
+        end repeat
+        set theTitles to ("[ " & theTitles & " ]")
+        set theNotes to ("[ " & theNotes & " ]")
+        set output to ("{ \"response\": { \"titles\": " & theTitles & ", \"notes\": " & theNotes & " } }")
     end tell
-end knSlideShowControl
+    return output
+end cmdINFO
+
+--  the control commands
+on cmdCTRL(command, arg)
+    set state to knGetState()
+    if command is "BOOT" then
+        if state is not "closed" then
+            error "application already running"
+        end if
+        tell application "Keynote"
+            activate
+        end tell
+    else if command is "QUIT" then
+        if state is "closed" then
+            error "application already closed"
+        end if
+        tell application "Keynote"
+            quit
+        end tell
+    else if command is "OPEN" then
+        if state is "editing" or state is "viewing" then
+            error "active presentation already existing"
+        end if
+        tell application "Keynote"
+            tell application "Finder" to set thePath to ¬
+                POSIX file (POSIX path of (container of (path to me) as string) & (arg)) as alias
+            open thePath
+        end tell
+    else if command is "CLOSE" then
+        if state is "closed" or state is "running" then
+            error "still no active presentation"
+        end if
+        tell application "Keynote"
+            close front document
+        end tell
+    else if command is "START" then
+        if state is "closed" or state is "running" then
+            error "still no active presentation"
+        end if
+        if state is "viewing" then
+            error "active presentation already viewing"
+        end if
+        tell application "Keynote"
+            start from (slide 1 of front document)
+        end tell
+    else if command is "STOP" then
+        if state is not "viewing" then
+            error "no active slideshow"
+        end if
+        tell application "Keynote"
+            stop slideshow (slideshow 1)
+        end tell
+    else if command is "PAUSE" then
+        if state is not "viewing" then
+            error "no active slideshow"
+        end if
+        tell application "Keynote"
+            activate
+            tell application "System Events" to keystroke "b"
+        end tell
+    else if command is "RESUME" then
+        if state is not "viewing" then
+            error "no active slideshow"
+        end if
+        tell application "Keynote"
+            activate
+            tell application "System Events" to keystroke "b"
+        end tell
+    else if command is "FIRST" then
+        if state is not "viewing" then
+            error "no active slideshow"
+        end if
+        tell application "Keynote"
+            show (item 1 of slides of slideshow 1)
+        end tell
+    else if command is "LAST" then
+        if state is not "viewing" then
+            error "no active slideshow"
+        end if
+        tell application "Keynote"
+            show (item (get count of slides of slideshow 1) of slides of slideshow 1)
+        end tell
+    else if command is "GOTO" then
+        if state is not "viewing" then
+            error "no active slideshow"
+        end if
+        tell application "Keynote"
+            show (item (arg as integer) of slides of slideshow 1)
+        end tell
+    else if command is "PREV" then
+        if state is not "viewing" then
+            error "no active slideshow"
+        end if
+        tell application "Keynote"
+            show previous
+        end tell
+    else if command is "NEXT" then
+        if state is not "viewing" then
+            error "no active slideshow"
+        end if
+        tell application "Keynote"
+            show next
+        end tell
+    end if
+    return "{ \"result\": \"OK\" }"
+end cmdCTRL
 
 --  main procedure
 on run argv
@@ -136,20 +254,31 @@ on run argv
     if count of argv is 2 then
         set arg to item 2 of argv
     end if
-    if cmd is "STAT" then
-        set curSlide to knGetCurSlide()
-        set maxSlide to knGetMaxSlide()
-        set output to ("{ \"curSlide\": " & curSlide & ", \"maxSlide\": " & maxSlide & " }")
-    else if cmd is "INFO" then
-        set slideInfo to knGetSlideInfo()
-        set output to ("{ \"slideInfo\": " & slideInfo & " }")
-    else if cmd is "TITLES" then
-        set theTitles to knGetSlideTitles()
-        set output to ("{ \"titles\": " & theTitles & " }")
-    else if cmd is "START" or cmd is "NEXT" or cmd is "GOTO" or cmd is "PREV" or cmd is "STOP" then
-        my knSlideShowControl(cmd, arg)
-        set output to "{}"
-    end if
+    try
+        if cmd is "STAT" then
+            set output to cmdSTATE()
+        else if cmd is "INFO" then
+            set output to cmdINFO()
+        else if cmd is "BOOT" ¬
+            or cmd is "QUIT" ¬
+            or cmd is "OPEN" ¬
+            or cmd is "CLOSE" ¬
+            or cmd is "START" ¬
+            or cmd is "STOP" ¬
+            or cmd is "PAUSE" ¬
+            or cmd is "RESUME" ¬
+            or cmd is "FIRST" ¬
+            or cmd is "LAST" ¬
+            or cmd is "GOTO" ¬
+            or cmd is "PREV" ¬
+            or cmd is "NEXT" then
+            set output to cmdCTRL(cmd, arg)
+        else
+            set output to "{ \"error\": \"invalid command\" }"
+        end if
+    on error errMsg
+        set output to ("{ \"error\": \"" & errMsg & "\" }")
+    end try
     copy output to stdout
 end run
 
