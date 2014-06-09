@@ -117,26 +117,29 @@ Presentation Application Support Status
 ---------------------------------------
 
 - **SUPPORTED**: Microsoft PowerPoint 2010 under Windows:<br/>
-  Fully supported through `connector-win-ppt`, which uses
+  Fully supported through `connector-win-ppt2010`, which uses
   Windows Scripting Host (WST)'s JScript engine and the
   Component Object Model (COM) of PowerPoint.
 
 - **SUPPORTED**: Microsoft PowerPoint 2013 under Windows:<br/>
   Expected to be supported (but not tested by the author) through
-  `connector-win-ppt`, which uses Windows Scripting Host (WST)'s JScript
+  `connector-win-ppt2010`, which uses Windows Scripting Host (WST)'s JScript
   engine and the Component Object Model (COM) of PowerPoint.
 
 - **SUPPORTED**: Microsoft PowerPoint 2011 under Mac OS X:<br/>
-  Fully supported through `connector-osx-ppt`, which uses AppleScript
+  Fully supported through `connector-osx-ppt2011`, which uses AppleScript
   engine and the application Dictionary of the PowerPoint:mac variant.
 
 - **SUPPORTED**: Apple Keynote 5 under Mac OS X:<br/>
-  Fully supported through `connector-osx-kn`, which uses AppleScript
+  Fully supported through `connector-osx-kn5`, which uses AppleScript
   engine and the application Dictionary of Keynote.
 
-- STILL UNSUPPORTED: Apple Keynote 6 under Mac OS X:<br/>
-  Currently not supported, because the AppleScript support in
-  Keynote 6 is still behind what Keynote 5 already supported.
+- **PARTIALLY SUPPORTED**: Apple Keynote 6 under Mac OS X:<br/>
+  Fully supported through `connector-osx-kn6`, which uses AppleScript
+  engine and the application Dictionary of Keynote. Currently partially
+  broken, because the AppleScript support in Keynote 6 still lacks many
+  things Keynote 5 already supported. The main problem currently is that
+  one cannot detect whether a slideshow is playing.
 
 - STILL UNSUPPORTED: LibreOffice 4 Impress under Windows/Mac OS X/Linux:<br/>
   Currently not supported, but there are two possible
