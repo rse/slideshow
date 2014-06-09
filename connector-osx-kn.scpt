@@ -244,7 +244,7 @@ on cmdCTRL(command, arg)
             show next
         end tell
     end if
-    return "{ \"result\": \"OK\" }"
+    return "{ \"response\": \"OK\" }"
 end cmdCTRL
 
 --  main procedure
