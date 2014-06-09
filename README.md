@@ -13,8 +13,9 @@ Observe and Control Slideshow Applications
 Abstract
 --------
 
-Slideshow is a [Node](http://nodejs.org/)/JavaScript API for observing and controlling
-the presentation applications
+Slideshow is a [Node](http://nodejs.org/)/JavaScript Application Programming Interface
+(API) and Command Line Interface (CLI) for observing and controlling
+the slideshow presentation applications
 [Microsoft PowerPoint 2010 for Windows](http://office.microsoft.com/en-us/powerpoint/),
 [Microsoft PowerPoint 2011 for Mac OS X](http://www.microsoft.com/mac/powerpoint) and
 [Apple KeyNote 5 for Mac OS X](http://www.apple.com/mac/keynote/).
