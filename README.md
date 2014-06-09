@@ -25,6 +25,42 @@ It is implemented as a thin Node/JavaScript API layer on
 top of platform-specific WSH/JScript and AppleScript connectors.
 No native code is required.
 
+Installation
+------------
+
+Use the Node Package Manager (NPM) to install this module
+locally (default) or globally (with option `-g`):
+
+    $ npm install [-g] slideshow
+
+Usage
+-----
+
+```sh
+#   CLI variant
+slideshow powerpoint open sample.pptx
+slideshow powerpoint start
+slideshow powerpoint goto 2
+sleep 2
+slideshow powerpoint stop
+slideshow powerpoint quit
+```
+
+```js
+#   API variant
+var Promise   = require("bluebird")
+var SlideShow = require("slideshow")
+var slideshow = new SlideShow("powerpoint")
+slideshow.open("sample.pptx")
+.then(function () { slideshow.start() })
+.then(function () { slideshow.goto(2) })
+.delay(2*1000)
+.then(function () { slideshow.stop() })
+.then(function () { slideshow.close() })
+.then(function () { slideshow.end() })
+.done()
+```
+
 Architecture
 ------------
 
@@ -107,14 +143,6 @@ Presentation Application Support Status
 - STILL UNSUPPORTED: OpenOffice 4 Impress under Windows/Mac OS X/Linux:<br/>
   Currently not supported, but there is one possible
   approache for the future: the [Universal Network Objects (UNO)](https://wiki.openoffice.org/wiki/Uno) Java interface.
-
-Installation
-------------
-
-Use the Node Package Manager (NPM) to install this module
-locally (default) or globally (with option `-g`):
-
-    $ npm install [-g] slideshow
 
 License
 -------
