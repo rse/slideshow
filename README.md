@@ -38,25 +38,28 @@ Usage
 
 ```sh
 #   CLI variant
+slideshow powerpoint boot
 slideshow powerpoint open sample.pptx
 slideshow powerpoint start
 slideshow powerpoint goto 2
 sleep 2
 slideshow powerpoint stop
+slideshow powerpoint close
 slideshow powerpoint quit
 ```
 
 ```js
 #   API variant
-var Promise   = require("bluebird")
 var SlideShow = require("slideshow")
 var slideshow = new SlideShow("powerpoint")
-slideshow.open("sample.pptx")
+slideshow.boot()
+.then(function () { slideshow.open("sample.pptx") })
 .then(function () { slideshow.start() })
 .then(function () { slideshow.goto(2) })
 .delay(2*1000)
 .then(function () { slideshow.stop() })
 .then(function () { slideshow.close() })
+.then(function () { slideshow.quit() })
 .then(function () { slideshow.end() })
 .done()
 ```
