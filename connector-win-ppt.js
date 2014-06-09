@@ -74,7 +74,7 @@ var cmdSTAT = function () {
         (pres !== null ? "editing" :
         (app  !== null ? "started" :
                          "closed"   )));
-    return "{ \"result\": { " +
+    return "{ \"response\": { " +
         "\"state\": \"" + state + "\", " +
         "\"position\": " + slideCur + ", " +
         "\"slides\": " + slideMax + " " +
@@ -135,7 +135,7 @@ var cmdINFO = function () {
         notes += "\"" + note + "\"";
 
     }
-    return "{ \"result\": { " +
+    return "{ \"response\": { " +
         "\"titles\": [ " + titles + " ], " +
         "\"notes\": [ " + notes + " ] " +
     "} }";
@@ -196,7 +196,7 @@ var cmdCONTROL = function (cmd, arg) {
         ss.View.Previous();
     else if (cmd === "NEXT")
         ss.View.Next();
-    return "{ \"result\": \"OK\" }";
+    return "{ \"response\": \"OK\" }";
 };
 
 /*  main stdin/stdout processing loop  */

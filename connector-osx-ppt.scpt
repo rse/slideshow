@@ -280,7 +280,7 @@ on cmdCTRL(command, arg)
             go to next slide (slideshow view of slide show window 1)
         end tell
     end if
-    return "{ \"result\": \"OK\" }"
+    return "{ \"response\": \"OK\" }"
 end cmdCTRL
 
 --  main procedure
