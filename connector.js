@@ -40,7 +40,7 @@ var connector = function (application) {
 
     /*  spawn the connector as a child process  */
     this.c = spawn(filename, [], {
-        stdio: [ "pipe", "pipe", process.stderr ], 
+        stdio: [ "pipe", "pipe", process.stderr ],
         env: { "CONNECTOR": "FIXME" }
     });
 
