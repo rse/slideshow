@@ -203,6 +203,7 @@ var cmdCONTROL = function (cmd, arg) {
 while (!WScript.StdIn.AtEndOfStream) {
     /*  read the input request  */
     var line = WScript.StdIn.ReadLine();
+    line = line.replace(/^{"command":"(.+?)"}$/, "$1");
     if (line === "" || line === "EXIT")
         break;
     var argv = line.split(/\s+/);
