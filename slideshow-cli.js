@@ -11,6 +11,10 @@
 **  Language: Node/JavaScript
 */
 
+/* global require: false */
+/* global console: false */
+/* global process: false */
+
 /*  external requirements  */
 var readline  = require("readline");
 var chalk     = require("chalk");

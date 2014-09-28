@@ -11,6 +11,9 @@
 **  Language: Node/JavaScript
 */
 
+/* global require: false */
+/* global module: false */
+
 var connector = require("./connector");
 
 /*  the slideshow API constructor  */
