@@ -12,5 +12,5 @@ rem ##  Purpose:  connector wrapper for Microsoft PowerPoint 2010 under Windows
 rem ##  Language: COMMAND.COM
 rem ##
 
-cscript /E:JScript /NoLogo "%~dp0\connector-win-ppt2010.js" %*
+%systemroot%\system32\cscript.exe /E:JScript /NoLogo "%~dp0\connector-win-ppt2010.js" %*
 
