@@ -73,7 +73,7 @@ The architecture of Slideshow fulfills the following constraints:
    this is nasty (especially under Windows) during module installation
    time (because a compiler is required). The solution is to leverage
    the scripting environment of the particular platform (Windows
-   Scripting Host and AppleScript).
+   Scripting Host (WSH) under Windows and AppleScript under Mac OS X).
 
 2. *Separate Platform Specifics*: The platform specific code should be kept separate
    (because else the infrastructure code would have to be duplicated).
