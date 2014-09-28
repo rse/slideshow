@@ -137,9 +137,11 @@ Presentation Application Support Status
 - **PARTIALLY SUPPORTED**: Apple Keynote 6 under Mac OS X:<br/>
   Partially supported through `connector-osx-kn6`, which uses AppleScript
   engine and the application Dictionary of Keynote. Currently partially
-  broken, because the AppleScript support in Keynote 6 still lacks many
-  things Keynote 5 already supported. The main problem currently is that
-  one cannot detect whether a slideshow is playing.
+  broken up to at least Keynote 6.2.2 (August 2014), because the
+  AppleScript support in Keynote 6 still lacks many things Keynote 5
+  already supported. The main problem currently is that one cannot
+  detect whether a slideshow is playing and that slide changing is
+  reflected in AppleScript only once the Keynote window lost its focus.
 
 - STILL UNSUPPORTED: LibreOffice 4 Impress under Windows/Mac OS X/Linux:<br/>
   Currently not supported, but there are two possible
