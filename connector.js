@@ -72,16 +72,24 @@ connector.prototype = {
     request: function (request) {
         var promise = Promise.pending();
         this.responses.push(function (response) {
-            if (typeof response !== "string")
-                promise.reject("invalid response type from connector");
-            else {
-                response = JSON.parse(response);
-                if (typeof response.error === "string")
-                    promise.reject(response.error);
-                else if (typeof response.response !== "undefined")
-                    promise.resolve(response.response);
-                else
-                    promise.reject("invalid response structure from connector");
+            var state;
+
+            try {
+                state = JSON.parse(response);
+            } catch (err) {
+                return promise.reject('Unable to get the current state of PowerPoint');
+            }
+
+            if (typeof response !== 'string') {
+                return promise.reject('Unable to get the current state of PowerPoint');
+            }
+
+            if (typeof state.error === 'string') {
+                promise.reject(state.error);
+            } else if (typeof state.response !== 'undefined') {
+                promise.resolve(state.response);
+            } else {
+                promise.reject('Unable to get the current state of PowerPoint');
             }
         });
         this.io.write(JSON.stringify(request) + "\r\n");
@@ -94,4 +102,3 @@ connector.prototype = {
 
 /*  export the API  */
 module.exports = connector;
-

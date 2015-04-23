@@ -1,42 +1,48 @@
 {
-    "name":        "slideshow",
-    "homepage":    "http://github.com/rse/slideshow",
-    "description": "Observe and Control Slideshow Applications",
-    "version":     "0.9.7",
-    "license":     "MPL",
-    "author": {
-        "name":    "Ralf S. Engelschall",
-        "email":   "rse@engelschall.com",
-        "url":     "http://engelschall.com"
-    },
-    "keywords": [
-        "slide", "slideshow", "presentation",
-        "powerpoint", "keynote", "applescript", "wsh", "jscript"
-    ],
-    "repository": {
-        "type": "git",
-        "url":  "git://github.com/rse/slideshow.git"
-    },
-    "bugs": {
-        "url":  "http://github.com/rse/slideshow"
-    },
-    "main": "./slideshow-api.js",
-    "bin": {
-        "slideshow": "./slideshow-cli.js"
-    },
-    "devDependencies": {
-        "grunt":                "~0.4.5",
-        "grunt-cli":            "~0.1.13",
-        "grunt-contrib-jshint": "~0.10.0",
-        "grunt-contrib-clean":  "~0.6.0",
-        "grunt-eslint":         "~1.1.0"
-    },
-    "dependencies" : {
-        "event-stream":         "~3.1.7",
-        "bluebird":             "~2.3.4",
-        "chalk":                "~0.5.1"
-    },
-    "engines": {
-        "node":                 ">=0.10.0"
-    }
+  "name": "slideshow",
+  "homepage": "http://github.com/rse/slideshow",
+  "description": "Observe and Control Slideshow Applications",
+  "version": "0.9.8",
+  "license": "MPL",
+  "author": {
+    "name": "Ralf S. Engelschall",
+    "email": "rse@engelschall.com",
+    "url": "http://engelschall.com"
+  },
+  "keywords": [
+    "slide",
+    "slideshow",
+    "presentation",
+    "powerpoint",
+    "keynote",
+    "applescript",
+    "wsh",
+    "jscript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rse/slideshow.git"
+  },
+  "bugs": {
+    "url": "http://github.com/rse/slideshow"
+  },
+  "main": "./slideshow-api.js",
+  "bin": {
+    "slideshow": "./slideshow-cli.js"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-eslint": "~1.1.0"
+  },
+  "dependencies": {
+    "event-stream": "~3.1.7",
+    "bluebird": "~2.3.4",
+    "chalk": "~0.5.1"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  }
 }
