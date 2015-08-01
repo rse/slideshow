@@ -72,17 +72,19 @@ connector.prototype = {
     request: function (request) {
         var promise = Promise.pending();
         this.responses.push(function (response) {
-            if (typeof response !== "string")
-                promise.reject("invalid response type from connector");
-            else {
-                response = JSON.parse(response);
-                if (typeof response.error === "string")
-                    promise.reject(response.error);
-                else if (typeof response.response !== "undefined")
-                    promise.resolve(response.response);
-                else
-                    promise.reject("invalid response structure from connector");
-            }
+          try {
+            response = JSON.parse(response);
+          } catch {
+            promise.reject("Invalid response type from connector");
+          }
+
+          if (typeof response.error === "string") {
+            promise.reject(response.error);
+          } else if (typeof response.response !== "undefined") {
+            promise.resolve(response.response);
+          } else {
+            promise.reject("Invalid response structure from connector");
+          }
         });
         this.io.write(JSON.stringify(request) + "\r\n");
         return promise.promise;
@@ -94,4 +96,3 @@ connector.prototype = {
 
 /*  export the API  */
 module.exports = connector;
-
