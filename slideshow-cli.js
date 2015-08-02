@@ -23,8 +23,13 @@ var slideshow = require("./slideshow-api");
 
 /*  define the known applications  */
 var apps = {
-    "powerpoint": true,
-    "keynote":    true
+    "powerpoint":     true,
+    "powerpoint2011": true,
+    "powerpoint2013": true,
+    "powerpoint2016": true,
+    "keynote":        true,
+    "keynote5":       true,
+    "keynote6":       true
 };
 
 /*  define the known commands (and their argument)  */

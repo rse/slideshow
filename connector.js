@@ -25,8 +25,10 @@ var connectors = {
     "darwin-keynote6":       "connector-osx-kn6.sh",
     "darwin-powerpoint":     "connector-osx-ppt2011.sh",
     "darwin-powerpoint2011": "connector-osx-ppt2011.sh",
+    "darwin-powerpoint2016": "connector-osx-ppt2011.sh",
     "win32-powerpoint":      "connector-win-ppt2010.bat",
-    "win32-powerpoint2010":  "connector-win-ppt2010.bat"
+    "win32-powerpoint2010":  "connector-win-ppt2010.bat",
+    "win32-powerpoint2013":  "connector-win-ppt2010.bat"
 };
 
 /*  the connector API constructor  */

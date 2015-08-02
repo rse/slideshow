@@ -116,6 +116,11 @@ The architecture in particular looks like this:
 Presentation Application Support Status
 ---------------------------------------
 
+- **SUPPORTED**: Microsoft PowerPoint 2013 under Windows:<br/>
+  Fully supported through `connector-win-ppt2010`, which uses
+  Windows Scripting Host (WST)'s JScript engine and the
+  Component Object Model (COM) of PowerPoint.
+
 - **SUPPORTED**: Microsoft PowerPoint 2010 under Windows:<br/>
   Fully supported through `connector-win-ppt2010`, which uses
   Windows Scripting Host (WST)'s JScript engine and the
@@ -125,6 +130,10 @@ Presentation Application Support Status
   Expected to be supported (but not tested by the author) through
   `connector-win-ppt2010`, which uses Windows Scripting Host (WST)'s JScript
   engine and the Component Object Model (COM) of PowerPoint.
+
+- **SUPPORTED**: Microsoft PowerPoint 2016 under Mac OS X:<br/>
+  Fully supported through `connector-osx-ppt2011`, which uses AppleScript
+  engine and the application Dictionary of the PowerPoint:mac variant.
 
 - **SUPPORTED**: Microsoft PowerPoint 2011 under Mac OS X:<br/>
   Fully supported through `connector-osx-ppt2011`, which uses AppleScript
