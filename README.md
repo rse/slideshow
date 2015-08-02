@@ -16,13 +16,13 @@ Abstract
 Slideshow is a [Node](http://nodejs.org/)/JavaScript Application Programming Interface
 (API) and Command Line Interface (CLI) for observing and controlling
 the slideshow presentation applications
-[Microsoft PowerPoint 2010 for Windows](http://office.microsoft.com/en-us/powerpoint/),
-[Microsoft PowerPoint 2011 for Mac OS X](http://www.microsoft.com/mac/powerpoint) and
-[Apple KeyNote 5 for Mac OS X](http://www.apple.com/mac/keynote/).
+[Microsoft PowerPoint 2010/2013 for Windows](http://office.microsoft.com/en-us/powerpoint/),
+[Microsoft PowerPoint 2011/2016 for Mac OS X](http://www.microsoft.com/mac/powerpoint) and
+[Apple KeyNote 5/6 for Mac OS X](http://www.apple.com/mac/keynote/).
 It can determine the current state of the application, gather information
 about the slides and control the application's slideshow mode.
 It is implemented as a thin Node/JavaScript API layer on
-top of platform-specific WSH/JScript and AppleScript connectors.
+top of platform-specific Windows WSH/JScript and Mac OS X Automator AppleScript/JavaScript connectors.
 No native code is required.
 
 Installation
@@ -116,11 +116,6 @@ The architecture in particular looks like this:
 Presentation Application Support Status
 ---------------------------------------
 
-- **SUPPORTED**: Microsoft PowerPoint 2013 under Windows:<br/>
-  Fully supported through `connector-win-ppt2010`, which uses
-  Windows Scripting Host (WST)'s JScript engine and the
-  Component Object Model (COM) of PowerPoint.
-
 - **SUPPORTED**: Microsoft PowerPoint 2010 under Windows:<br/>
   Fully supported through `connector-win-ppt2010`, which uses
   Windows Scripting Host (WST)'s JScript engine and the
@@ -131,11 +126,11 @@ Presentation Application Support Status
   `connector-win-ppt2010`, which uses Windows Scripting Host (WST)'s JScript
   engine and the Component Object Model (COM) of PowerPoint.
 
-- **SUPPORTED**: Microsoft PowerPoint 2016 under Mac OS X:<br/>
+- **SUPPORTED**: Microsoft PowerPoint 2011 under Mac OS X:<br/>
   Fully supported through `connector-osx-ppt2011`, which uses AppleScript
   engine and the application Dictionary of the PowerPoint:mac variant.
 
-- **SUPPORTED**: Microsoft PowerPoint 2011 under Mac OS X:<br/>
+- **SUPPORTED**: Microsoft PowerPoint 2016 under Mac OS X:<br/>
   Fully supported through `connector-osx-ppt2011`, which uses AppleScript
   engine and the application Dictionary of the PowerPoint:mac variant.
 
