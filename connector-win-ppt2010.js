@@ -31,27 +31,31 @@ var activeApplication = function () {
 
 /*  determine whether a presentation is active  */
 var activePresentation = function (app) {
-    var pres;
-    try {
-        pres = app.ActivePresentation;
-    }
-    catch (e) {
-        pres = null;
+    var pres = null;
+    if (app !== null) {
+        try {
+            pres = app.ActivePresentation;
+        }
+        catch (e) {
+            pres = null;
+        }
     }
     return pres;
 };
 
 /*  determine whether slideshow is running  */
 var activeSlideshow = function (app) {
-    var ss;
-    try {
-        if (app.SlideShowWindows.Count > 0)
-            ss = app.SlideShowWindows.Item(1);
-        else
+    var ss = null;
+    if (app !== null) {
+        try {
+            if (app.SlideShowWindows.Count > 0)
+                ss = app.SlideShowWindows.Item(1);
+            else
+                ss = null;
+        }
+        catch (e) {
             ss = null;
-    }
-    catch (e) {
-        ss = null;
+        }
     }
     return ss;
 };
@@ -162,7 +166,7 @@ var cmdCONTROL = function (cmd, arg) {
     }
 
     /*  dispatch actions  */
-    if (cmd === "BOOT")
+    if (cmd === "BOOT" && app !== null)
         app.Visible = true;
     else if (cmd === "QUIT")
         app.Quit();
@@ -180,7 +184,7 @@ var cmdCONTROL = function (cmd, arg) {
         pres.SlideShowSettings.Run();
     }
     else if (cmd === "STOP") {
-        ss.Exit();
+        ss.View.Exit();
     }
     else if (cmd === "PAUSE")
         ss.View.State = 3 /* ppSlideShowBlackScreen */;
