@@ -1,6 +1,6 @@
 ##
 ##  slideshow -- Observe and Control Slideshow Applications
-##  Copyright (c) 2014-2015 Ralf S. Engelschall <http://engelschall.com>
+##  Copyright (c) 2014-2017 Ralf S. Engelschall <http://engelschall.com>
 ##
 ##  This Source Code Form is subject to the terms of the Mozilla Public
 ##  License (MPL), version 2.0. If a copy of the MPL was not distributed
