@@ -16,7 +16,7 @@ Abstract
 Slideshow is a [Node](http://nodejs.org/)/JavaScript Application Programming Interface
 (API) and Command Line Interface (CLI) for observing and controlling
 the slideshow presentation applications
-[Microsoft PowerPoint 2010/2013 for Windows](http://office.microsoft.com/en-us/powerpoint/),
+[Microsoft PowerPoint 2010/2013/2016 for Windows](http://office.microsoft.com/en-us/powerpoint/),
 [Microsoft PowerPoint 2011/2016 for Mac OS X](http://www.microsoft.com/mac/powerpoint) and
 [Apple KeyNote 5/6 for Mac OS X](http://www.apple.com/mac/keynote/).
 It can determine the current state of the application, gather information
@@ -122,6 +122,11 @@ Presentation Application Support Status
   Component Object Model (COM) of PowerPoint.
 
 - **SUPPORTED**: Microsoft PowerPoint 2013 under Windows:<br/>
+  Expected to be supported (but not tested by the author) through
+  `connector-win-ppt2010`, which uses Windows Scripting Host (WST)'s JScript
+  engine and the Component Object Model (COM) of PowerPoint.
+
+- **SUPPORTED**: Microsoft PowerPoint 2016 under Windows:<br/>
   Expected to be supported (but not tested by the author) through
   `connector-win-ppt2010`, which uses Windows Scripting Host (WST)'s JScript
   engine and the Component Object Model (COM) of PowerPoint.
