@@ -195,7 +195,7 @@ on cmdCTRL(command, arg)
         end if
         tell application "Microsoft PowerPoint"
             tell application "Finder" to set thePath to ¬
-                POSIX file (POSIX path of (container of (path to me) as string) & (arg)) as alias
+                POSIX file (POSIX path of arg) as alias
             open thePath
         end tell
     else if command is "CLOSE" then

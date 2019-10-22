@@ -33,7 +33,10 @@ slideshow.prototype = {
     "info":   function ()   { return this.connector.request({ command: "INFO"       }); },
     "boot":   function ()   { return this.connector.request({ command: "BOOT"       }); },
     "quit":   function ()   { return this.connector.request({ command: "QUIT"       }); },
-    "open":   function (fn) { return this.connector.request({ command: "OPEN " + fn }); },
+    "open":   function (fn) {
+        var absolute_file_path = require("path").resolve(fn);
+        return this.connector.request({ command: "OPEN " + absolute_file_path });
+    },
     "close":  function ()   { return this.connector.request({ command: "CLOSE"      }); },
     "start":  function ()   { return this.connector.request({ command: "START"      }); },
     "stop":   function ()   { return this.connector.request({ command: "STOP"       }); },
