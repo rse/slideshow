@@ -1,7 +1,7 @@
 @echo off
 rem ##
 rem ##  slideshow -- Observe and Control Slideshow Applications
-rem ##  Copyright (c) 2014-2019 Dr. Ralf S. Engelschall <http://engelschall.com>
+rem ##  Copyright (c) 2014-2023 Dr. Ralf S. Engelschall <http://engelschall.com>
 rem ##
 rem ##  This Source Code Form is subject to the terms of the Mozilla Public
 rem ##  License (MPL), version 2.0. If a copy of the MPL was not distributed
