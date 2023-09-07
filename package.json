@@ -2,7 +2,7 @@
     "name":        "slideshow",
     "homepage":    "http://github.com/rse/slideshow",
     "description": "Observe and Control Slideshow Applications",
-    "version":     "1.1.0",
+    "version":     "1.1.1",
     "license":     "MPL",
     "author": {
         "name":    "Dr. Ralf S. Engelschall",
