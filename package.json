@@ -29,13 +29,14 @@
         "grunt-cli":            "1.4.3",
         "grunt-contrib-jshint": "3.2.0",
         "grunt-contrib-clean":  "2.0.1",
-        "grunt-eslint":         "24.0.1"
+        "grunt-eslint":         "24.3.0"
     },
     "dependencies" : {
         "event-stream":         "4.0.1",
         "bluebird":             "3.7.2",
         "chalk":                "4.1.2"
     },
+    "upd":                      [ "!chalk" ],
     "engines": {
         "node":                 ">=8.0.0"
     }
