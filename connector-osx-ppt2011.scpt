@@ -239,9 +239,7 @@ on cmdCTRL(command, arg)
             error "no active slideshow"
         end if
         tell application "Microsoft PowerPoint"
-            -- set slide state of (slideshow view of slide show window 1) to (slide show state paused)
-            go to slide (view of document window 1) number ¬
-                (slide number of slide of slide show view of slide show window of active presentation)
+            set slide state of (slideshow view of slide show window 1) to (slide show state running)
         end tell
     else if command is "FIRST" then
         if state is not "viewing" then
