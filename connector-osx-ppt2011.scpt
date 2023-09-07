@@ -260,7 +260,15 @@ on cmdCTRL(command, arg)
             error "no active slideshow"
         end if
         tell application "Microsoft PowerPoint"
-            go to slide (view of document window 1) number (arg as integer) -- BUGGY: does not do anything
+            exit slide show (slideshow view of slide show window 1)
+            go to slide (view of document window 1) number (arg as integer)
+            set slideShowSettings to slide show settings of active presentation
+            set slideShowSettings's starting slide to (arg as integer)
+            set slideShowSettings's ending slide to (get count of slides of presentation of document window 1)
+            set slideShowSettings's range type to slide show range
+            set slideShowSettings's show type to slide show type speaker
+            set slideShowSettings's advance mode to slide show advance manual advance
+            run slide show slideShowSettings
         end tell
     else if command is "PREV" then
         if state is not "viewing" then
