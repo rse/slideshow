@@ -218,7 +218,7 @@ on cmdCTRL(command, arg)
             set slideShowSettings's range type to slide show range show all
             set slideShowSettings's show type to slide show type speaker
             set slideShowSettings's advance mode to slide show advance manual advance
-            run slide show slideShowSettings -- BUGGY: starts blank
+            run slide show slideShowSettings
         end tell
     else if command is "STOP" then
         if state is not "viewing" then
