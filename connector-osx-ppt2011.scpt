@@ -235,7 +235,7 @@ on cmdCTRL(command, arg)
             set slide state of (slideshow view of slide show window of active presentation) to (slide show state black screen)
         end tell
     else if command is "RESUME" then
-        if state is not "viewing" then
+        if state is not "editing" then
             error "no active slideshow"
         end if
         tell application "Microsoft PowerPoint"
