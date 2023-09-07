@@ -15,14 +15,14 @@
     ],
     "repository": {
         "type": "git",
-        "url":  "git://github.com/rse/slideshow.git"
+        "url":  "git+https://github.com/rse/slideshow.git"
     },
     "bugs": {
         "url":  "http://github.com/rse/slideshow"
     },
-    "main": "./slideshow-api.js",
+    "main": "slideshow-api.js",
     "bin": {
-        "slideshow": "./slideshow-cli.js"
+        "slideshow": "slideshow-cli.js"
     },
     "devDependencies": {
         "grunt":                "1.6.1",
