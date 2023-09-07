@@ -225,35 +225,35 @@ on cmdCTRL(command, arg)
             error "no active slideshow"
         end if
         tell application "Microsoft PowerPoint"
-            exit slide show (slideshow view of slide show window 1)
+            exit slide show (slideshow view of slide show window of active presentation)
         end tell
     else if command is "PAUSE" then
         if state is not "viewing" then
             error "no active slideshow"
         end if
         tell application "Microsoft PowerPoint"
-            set slide state of (slideshow view of slide show window 1) to (slide show state black screen)
+            set slide state of (slideshow view of slide show window of active presentation) to (slide show state black screen)
         end tell
     else if command is "RESUME" then
         if state is not "viewing" then
             error "no active slideshow"
         end if
         tell application "Microsoft PowerPoint"
-            set slide state of (slideshow view of slide show window 1) to (slide show state running)
+            set slide state of (slideshow view of slide show window of active presentation) to (slide show state running)
         end tell
     else if command is "FIRST" then
         if state is not "viewing" then
             error "no active slideshow"
         end if
         tell application "Microsoft PowerPoint"
-            go to first slide (slideshow view of slide show window 1)
+            go to first slide (slideshow view of slide show window of active presentation)
         end tell
     else if command is "LAST" then
         if state is not "viewing" then
             error "no active slideshow"
         end if
         tell application "Microsoft PowerPoint"
-            go to last slide (slideshow view of slide show window 1)
+            go to last slide (slideshow view of slide show window of active presentation)
         end tell
     else if command is "GOTO" then
         if state is not "viewing" then
@@ -264,12 +264,12 @@ on cmdCTRL(command, arg)
             set srcSlide to (slide number of slide of slide show view of slide show window of active presentation)
             if srcSlide < dstSlide then
                 repeat while srcSlide < dstSlide
-                    go to next slide (slideshow view of slide show window 1)
+                    go to next slide (slideshow view of slide show window of active presentation)
                     set srcSlide to (slide number of slide of slide show view of slide show window of active presentation)
                 end repeat
             else if srcSlide > dstSlide then
                 repeat while srcSlide > dstSlide
-                    go to previous slide (slideshow view of slide show window 1)
+                    go to previous slide (slideshow view of slide show window of active presentation)
                     set srcSlide to (slide number of slide of slide show view of slide show window of active presentation)
                 end repeat
             end if
@@ -279,14 +279,14 @@ on cmdCTRL(command, arg)
             error "no active slideshow"
         end if
         tell application "Microsoft PowerPoint"
-            go to previous slide (slideshow view of slide show window 1)
+            go to previous slide (slideshow view of slide show window of active presentation)
         end tell
     else if command is "NEXT" then
         if state is not "viewing" then
             error "no active slideshow"
         end if
         tell application "Microsoft PowerPoint"
-            go to next slide (slideshow view of slide show window 1)
+            go to next slide (slideshow view of slide show window of active presentation)
         end tell
     end if
     return "{ \"response\": \"OK\" }"
