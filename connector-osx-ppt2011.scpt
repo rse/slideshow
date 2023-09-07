@@ -215,8 +215,7 @@ on cmdCTRL(command, arg)
         tell application "Microsoft PowerPoint"
             set slideShowSettings to slide show settings of active presentation
             set slideShowSettings's starting slide to 1
-            set slideShowSettings's ending slide to 1
-            set slideShowSettings's range type to slide show range
+            set slideShowSettings's range type to slide show range show all
             set slideShowSettings's show type to slide show type speaker
             set slideShowSettings's advance mode to slide show advance manual advance
             run slide show slideShowSettings -- BUGGY: starts blank
