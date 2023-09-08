@@ -20,7 +20,8 @@
     "bugs": {
         "url":  "http://github.com/rse/slideshow"
     },
-    "main": "slideshow-api.js",
+    "main":  "slideshow-api.js",
+    "types": "slideshow-api.d.ts",
     "bin": {
         "slideshow": "slideshow-cli.js"
     },
