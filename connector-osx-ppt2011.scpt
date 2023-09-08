@@ -69,10 +69,12 @@ end pptGetState
 on pptGetCurSlide()
     try
         tell application "Microsoft PowerPoint"
-            if slide state of slide show view of slide show window of active presentation is slide show state running then
+            set curSlide to 0
+            set theState to (slide state of slide show view of slide show window of active presentation)
+            if theState is (slide show state running) or theState is (slide show state paused) then
                 --  currently in running slide show mode (for production)
-                set curSlide to (slide number of slide of slide show view of slide show window of active presentation)
-            else
+                set curSlide to (current show position of slide show view of slide show window of active presentation)
+            else if (exists active presentation) then
                 --  currently in editing mode (for testing)
                 set curSlide to (slide number of slide range of selection of document window 1)
             end if
@@ -261,16 +263,16 @@ on cmdCTRL(command, arg)
         end if
         tell application "Microsoft PowerPoint"
             set dstSlide to (arg as integer)
-            set srcSlide to (slide number of slide of slide show view of slide show window of active presentation)
+            set srcSlide to (current show position of slide show view of slide show window of active presentation)
             if srcSlide < dstSlide then
                 repeat while srcSlide < dstSlide
                     go to next slide (slideshow view of slide show window of active presentation)
-                    set srcSlide to (slide number of slide of slide show view of slide show window of active presentation)
+                    set srcSlide to (current show position of slide show view of slide show window of active presentation)
                 end repeat
             else if srcSlide > dstSlide then
                 repeat while srcSlide > dstSlide
                     go to previous slide (slideshow view of slide show window of active presentation)
-                    set srcSlide to (slide number of slide of slide show view of slide show window of active presentation)
+                    set srcSlide to (current show position of slide show view of slide show window of active presentation)
                 end repeat
             end if
         end tell
