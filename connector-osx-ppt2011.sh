@@ -28,10 +28,11 @@ case "$0" in
         IFS=$OIFS
         ;;
 esac
-basedir=`echo "$basedir" | sed -e 's;/\.$;;g'`
-basedir=`echo "$basedir" | sed -e 's;/\./;/;g'`
-basedir=`echo "$basedir" | sed -e 's;/[^/][^/]*/\.\./;/;g'`
-basedir=`echo "$basedir" | sed -e 's;/[^/][^/]*/\.\.$;;g'`
+basedir=`echo "$basedir" | \
+    sed -e 's;/\.$;;g' \
+        -e 's;/\./;/;g' \
+        -e 's;/[^/][^/]*/\.\./;/;g' \
+        -e 's;/[^/][^/]*/\.\.$;;g'`
 
 #   provide the stdin loop
 #   (because AppleScript is not easily able to do this)
